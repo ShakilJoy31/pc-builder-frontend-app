@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import Aos from 'aos';
+import { useSession } from 'next-auth/react';
 import {
   usePathname,
   useRouter,
@@ -17,6 +18,7 @@ import { CustomerAPI } from '../../APIcalling/customerAPI';
 import DashboardCSS from '../../style/Dashboard.module.css';
 
 const Page = () => {
+    const { data: session } = useSession()
     const router = useRouter();
     const pathname = usePathname();
     const [fetchedData, setFetchedData] = useState([]);
@@ -28,7 +30,7 @@ const Page = () => {
     const [powerSupplyUnit, setPowerSupplyUnit] = useState(null);
     const [storageMemory, setStorageMemory] = useState(null);
     const [monitor, setMonitor] = useState(null);
-    const [accessories, setAccessories] = useState(null);
+const [accessories, setAccessories] = useState(null);
     const [productsToShow, setProductsToShow] = useState(null);
 
     useEffect(() => {
@@ -45,6 +47,10 @@ const Page = () => {
         setMonitor(JSON.parse(localStorage.getItem('MonitorForPCBuilding')) || null)
         setAccessories(JSON.parse(localStorage.getItem('AccessoriesForPCBuilding')) || null)
         setProductsToShow(JSON.parse(localStorage.getItem('ProductsForPCBuilding')) || null)
+
+        if(!session){
+            router.back();
+        }
     }, [pathname])
     const [productToShow, setProductToShow] = useState(null);
     const handleClickedButtonForSelectedProductPreview = (getKey) => {

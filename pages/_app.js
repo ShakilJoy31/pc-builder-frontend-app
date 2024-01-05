@@ -1,5 +1,7 @@
 import '../style/globals.css';
 
+import { SessionProvider } from 'next-auth/react';
+
 import {
   AuthenticUser,
   BlurForSafety,
@@ -22,9 +24,11 @@ export default function App({ Component, pageProps }) {
             <CategoryWisedProductsStore.Provider>
               <UserStore.Provider>
                 <div className='text-white bg-black'>
-                  <BeeRawNavbar></BeeRawNavbar>
-                  <Component {...pageProps} />
-                  <Footer></Footer>
+                  <SessionProvider session={pageProps.session}>
+                    <BeeRawNavbar></BeeRawNavbar>
+                    <Component {...pageProps} />
+                    <Footer></Footer>
+                  </SessionProvider>
                 </div>
               </UserStore.Provider>
             </CategoryWisedProductsStore.Provider>

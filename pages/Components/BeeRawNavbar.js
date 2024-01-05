@@ -5,38 +5,47 @@ import React, { useEffect } from 'react';
 
 import Aos from 'aos';
 import {
+  signOut,
+  useSession,
+} from 'next-auth/react';
+import {
   usePathname,
   useRouter,
 } from 'next/navigation';
 
-import { ProductsStore } from '@/userStore';
+import {
+  AuthenticUser,
+  ProductsStore,
+} from '@/userStore';
 
 import { CustomerAPI } from '../../APIcalling/customerAPI';
+import SheltonLogin from '../../pages/Components/SheltonLogin';
+import SheltonSignup from '../../pages/Components/SheltonSignup';
+import DashboardCSS from '../../style/Dashboard.module.css';
 
 const Page = () => {
+  const { data: session } = useSession()
   const router = useRouter();
   const pathname = usePathname();
   const { products, setProducts } = ProductsStore.useContainer();
+  const { authenticatedUser, setAuthenticatedUser } = AuthenticUser.useContainer();
+
   useEffect(() => {
     Aos.init({ duration: 500 });
-    if (JSON.parse(localStorage.getItem('editable'))) {
-      setIsAdmin(true);
+    if (session) {
+      setAuthenticatedUser(session);
     }
-    if (JSON.parse(localStorage.getItem('user'))) {
-      setIsLoggedIn(true);
-    }
-  }, [])
+  }, [session])
   const getOneRandomProductFromEachCategory = (productsByCategory) => {
     return productsByCategory?.map((categoryData) => {
-        const { category, products } = categoryData;
-        if (products.length > 0) {
-            const randomIndex = Math.floor(Math.random() * products.length);
-            return products[randomIndex];
-        }
-        // Return a default value if there are no products in the category
-        return null; // or any other default value you prefer
+      const { category, products } = categoryData;
+      if (products.length > 0) {
+        const randomIndex = Math.floor(Math.random() * products.length);
+        return products[randomIndex];
+      }
+      return null; // or any other default value you prefer
     }).filter((product) => product !== null); // Filter out default values, if any
-};
+  };
 
 
 
@@ -45,12 +54,19 @@ const Page = () => {
       setProducts(getOneRandomProductFromEachCategory(res))
     })
   }, [])
-
+  const handleClickedPCBuilderButton = () => {
+    if(!session){
+      document.getElementById('loginModal').showModal();
+    }else{
+      router.push('/pc-builder')
+    }
+  }
   return (
-    <div style={{background: 'radial-gradient(circle, #5c0067 0%, #00d4ff 100%)'}} className="navbar">
+    <div style={{ background: 'radial-gradient(circle, #5c0067 0%, #00d4ff 100%)' }} className="navbar">
       <div className="flex-1">
-        <a onClick={()=> router.push('/')} className="btn btn-outline bg-purple-600 lg:text-xl text-white border-0">Home</a>
+        <button onClick={() => router.push('/')} className={`btn border-0 btn-sm normal-case ${DashboardCSS.productBuyNowButton}`}>Home</button>
       </div>
+
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
@@ -58,20 +74,60 @@ const Page = () => {
               <summary>
                 Categories
               </summary>
-              <ul style={{background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)', zIndex: '2'}} className="p-2 rounded-t-none w-[216px]">
-                <li onClick={()=> router.push('/processor')}><a>CPU / Processor</a></li>
-                <li onClick={()=> router.push('/motherboard')}><a>Motherboard</a></li>
-                <li onClick={()=> router.push('/ram')}><a>RAM</a></li>
-                <li onClick={()=> router.push('/power-supply-unit')}><a>Power Supply Unit</a></li>
-                <li onClick={()=> router.push('/storage-device')}><a>Storage Device</a></li>
-                <li onClick={()=> router.push('/monitor')}><a>Monitor</a></li>
-                <li onClick={()=> router.push('/other')}><a>Others (Mouse, Keyboard etc)</a></li>
+              <ul style={{ background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)', zIndex: '2' }} className="p-2 rounded-t-none w-[216px]">
+                <li onClick={() => router.push('/processor')}><a>CPU / Processor</a></li>
+                <li onClick={() => router.push('/motherboard')}><a>Motherboard</a></li>
+                <li onClick={() => router.push('/ram')}><a>RAM</a></li>
+                <li onClick={() => router.push('/power-supply-unit')}><a>Power Supply Unit</a></li>
+                <li onClick={() => router.push('/storage-device')}><a>Storage Device</a></li>
+                <li onClick={() => router.push('/monitor')}><a>Monitor</a></li>
+                <li onClick={() => router.push('/other')}><a>Others (Mouse, Keyboard etc)</a></li>
               </ul>
             </details>
           </li>
-          <li onClick={()=> router.push('/pc-builder')}><a>Pc Builder</a></li>
+
+          <li onClick={handleClickedPCBuilderButton}><button className={`btn border-0 btn-sm lg:mx-6 md:mx-4 mx-2 normal-case ${DashboardCSS.productBuyNowButton}`}>PC Builder</button></li>
+
+          {
+            session ? <li onClick={() => signOut()}><button className={`btn border-0 btn-sm normal-case ${DashboardCSS.productBuyNowButton}`}>Log out</button></li> : <li onClick={() => document.getElementById('loginModal').showModal()}><button className={`btn border-0 btn-sm normal-case ${DashboardCSS.productBuyNowButton}`}>Login</button></li>
+          }
+
         </ul>
       </div>
+
+
+
+      {/* For login */}
+      <dialog id="loginModal" className="modal">
+        <div style={{
+          color: 'white',
+          background: 'black',
+          border: '2px solid crimson'
+        }} className="modal-box">
+          <SheltonLogin></SheltonLogin>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+
+      <dialog id="signupModal" className="modal">
+        <div style={{
+          color: 'white',
+          background: 'black',
+          border: '2px solid crimson'
+        }} className="modal-box">
+          <SheltonSignup></SheltonSignup>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+
+      {/* For Sign up */}
+
     </div>
   );
 };

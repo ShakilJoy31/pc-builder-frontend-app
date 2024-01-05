@@ -52,7 +52,7 @@ const Page = ({ individualProduct, setIndividualProduct }) => {
     const handlePostReviewForIndividualComment = () => {
         const reviewTime = getCurrentDateTime();
         const reviewData = {
-            reviewerName: authenticatedUser.name || isLoggedIn.name,
+            reviewerName: authenticatedUser?.user?.name || 'Annomous',
             reviewerComment: reviewerComment,
             repliedCommentId: selectedCommentToReply?.userId,
             reviewTime: reviewTime
@@ -95,7 +95,7 @@ const Page = ({ individualProduct, setIndividualProduct }) => {
                                 <span onClick={() => handleTargetCommentToReview(comment)} className={`${IndividualCSS.plusCommnet}`}><BiSolidCommentAdd size={25}></BiSolidCommentAdd></span>
 
                                 {
-                                    !authenticatedUser ? <span onClick={() => handleDeleteCommentByAdmin(comment)} className={`${IndividualCSS.plusCommnet}`}><MdDelete size={25}></MdDelete></span> : ''
+                                    authenticatedUser ? <span onClick={() => handleDeleteCommentByAdmin(comment)} className={`${IndividualCSS.plusCommnet}`}><MdDelete size={25}></MdDelete></span> : ''
                                 }
                                 
                                 </div>
@@ -114,7 +114,7 @@ const Page = ({ individualProduct, setIndividualProduct }) => {
                                                 background: 'white',
                                             }}
                                             onChange={(e) => setReviewerComment(e.target.value)}
-                                            placeholder={`Hi ${authenticatedUser.name || isLoggedIn.name},  Please type your review here`}
+                                            placeholder={`Hi ${authenticatedUser?.user?.name},  Please type your review here`}
                                             className={`w-full h-[35px] focus:outline-none border-0 pl-1 text-black`}
                                             type="text"
                                             name=""

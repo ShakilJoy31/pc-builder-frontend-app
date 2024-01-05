@@ -19,7 +19,6 @@ import IndividualCSS from '../../style/Individual.module.css';
 import {
   AuthenticUser,
   CommentPermission,
-  LoggedInUserStore,
   ProductsStore,
   UserStore,
 } from '../../userStore';
@@ -28,6 +27,8 @@ import Divider from '../Components/Divider';
 const ProductSlider = () => {
     const pathname = usePathname();
     const clickedFor = pathname?.split("/")[pathname?.split("/").length - 1];
+    const {authenticatedUser, setAuthenticatedUser } = AuthenticUser.useContainer();
+    console.log(authenticatedUser);
     const [individualProduct, setIndividualProduct] = useState([]);
     const [indRating, setIndRating] = useState([]);
     const [avgRating, setAvgRating] = useState([]);
@@ -68,9 +69,7 @@ const ProductSlider = () => {
     const [numberOfUserRattings, setNumberOfUserRattings] = useState([]);
     const [previewImage, setPreviewImage] = useState('');
     const [warning, setWarning] = useState(false);
-    const { isLoggedIn, setIsLoggedIn } = LoggedInUserStore.useContainer();
     const { isCommentPermission, setIsCommentPermission } = CommentPermission.useContainer();
-    const { authenticatedUser, setAuthenticatedUser } = AuthenticUser.useContainer();
 
     setTimeout(function () {
         if (warning) {
@@ -105,7 +104,7 @@ const ProductSlider = () => {
     }
     const HandlePostingCommentOnTool = async () => {
         const userComment = {
-            name: authenticatedUser.name || isLoggedIn.name,
+            name: authenticatedUser?.user?.name || 'Annonomous',
             comment: comment,
             individualRatting: equipmentPerformance,
             overallRatting: customerService
@@ -132,16 +131,6 @@ const ProductSlider = () => {
         });
     }
 
-
-    // const handleUserWantsToComment = () => {
-    //     if (isLoggedIn || authenticatedUser) {
-    //         document.getElementById('readyToCommentModal').showModal();
-    //     } else {
-    //         setIsCommentPermission('Authentication is required!');
-    //         document.getElementById('loginModal').showModal();
-    //     }
-    // }
-
     setTimeout(function () {
         if (isCommentPermission) {
             setIsCommentPermission('')
@@ -156,66 +145,6 @@ const ProductSlider = () => {
     const [hiringCustom, setHiringCustom] = useState(0);
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const handleProcceedToHire = () => {
-        if (!address || !phoneNumber) {
-            document.getElementById('toolHiringForm').showModal();
-        } else {
-            let userDataForOrderTool = {}
-            if (hiringHour) {
-                userDataForOrderTool = {
-                    name: authenticatedUser.name,
-                    email: authenticatedUser.email,
-                    phoneNumber: phoneNumber,
-                    address: address,
-                    orderedTool: individualProduct,
-                    hiringCost: totalHiringCost,
-                    hiringDuration: hiringHour + ' Hour',
-                    hiringTime: getCurrentDateTime(),
-                }
-            } else if (hiringDay) {
-                userDataForOrderTool = {
-                    name: authenticatedUser.name,
-                    email: authenticatedUser.email,
-                    phoneNumber: phoneNumber,
-                    address: address,
-                    orderedTool: individualProduct,
-                    hiringCost: totalHiringCost,
-                    hiringDuration: hiringDay + ' Day',
-                    hiringTime: getCurrentDateTime(),
-                }
-            } else {
-                userDataForOrderTool = {
-                    name: authenticatedUser.name,
-                    email: authenticatedUser.email,
-                    phoneNumber: phoneNumber,
-                    address: address,
-                    orderedTool: individualProduct,
-                    hiringCost: totalHiringCost,
-                    hiringDuration: hiringCustom,
-                    hiringTime: getCurrentDateTime(),
-                }
-            }
-            if (authenticatedUser.length !== 0) {
-                if (!totalHiringCost) {
-                    setIsCommentPermission('Select your service.');
-                } else {
-                    if ((hiringCustomFrom && hiringCustomFromTo) || hiringHour || hiringDay) {
-                        CustomerAPI.userInformationForPlacOrderProduct(userDataForOrderTool).then(res => {
-                            if (res.acknowledged === true) {
-                                document.getElementById('placeOrderModal')?.showModal();
-                            }
-                        });
-                    } else {
-                        setIsCommentPermission('Select your time period for hiring.');
-                    }
-                }
-
-            } else {
-                setIsCommentPermission('Authentication is required!');
-                document.getElementById('loginModal').showModal();
-            }
-        }
-    }
 
     return (
         <div className='min-h-screen' data-aos="zoom-in-up">
@@ -329,7 +258,6 @@ const ProductSlider = () => {
             }
 
 
-            {/* The modal for commenting */}
             <dialog id="readyToCommentModal" className="modal">
                 <div className={`${IndividualCSS.toCommentModal} modal-box`}>
 
@@ -344,7 +272,7 @@ const ProductSlider = () => {
                                     borderRadius: '8px',
                                     background: 'white',
                                 }}
-                                placeholder={`Hi ${authenticatedUser.name || isLoggedIn.name} Please type your comment here`}
+                                placeholder={`Hi ${authenticatedUser?.user?.name} Please type your comment here`}
                                 className={`w-full h-[55px] focus:outline-none border-0 pl-1 text-black`}
                                 type="text"
                                 name=""
@@ -387,75 +315,6 @@ const ProductSlider = () => {
                     <button>close</button>
                 </form>
             </dialog>
-
-
-
-            {/* The warning modal to delete the product*/}
-            {/* <dialog id="beforeDelete" className="modal">
-                <div style={{
-                    color: 'white',
-                    background: 'black',
-                    border: '2px solid crimson'
-                }} className="modal-box">
-                    <div>
-                        <h3 className="flex justify-center text-white items-center gap-x-2"><span><TbAlertOctagonFilled size={30} color={'black'}></TbAlertOctagonFilled></span> <span>Hey, Attention please!</span></h3>
-                        <h1 className="flex justify-center">Do you want to delete this product?</h1>
-                        <h1 className="flex justify-center">This is not reverseable!</h1>
-                        <div className='flex justify-between items-center mt-[24px]'>
-                            <div onClick={() => document.getElementById('beforeDelete').close()}>
-                                <button className={`btn border-0 btn-sm bg-white text-black w-[150px] normal-case `}>Cancel</button>
-                            </div>
-
-                            <div onClick={handleDeleteProductByAdmin} className={`${IndividualCSS.theButton}`}>
-                                {
-                                    <button className={`btn border-0 btn-sm w-[150px] normal-case ${DashboardCSS.IndividualProductBuyNowButton}`}>Delete Tool</button>
-                                }
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog> */}
-
-
-            {/* Modal for successfully hired a tool */}
-            {/* <dialog id="placeOrderModal" className="modal">
-                <div style={{
-                    color: 'white',
-                    background: 'black',
-                    border: '2px solid crimson'
-                }} className="modal-box">
-                    Your hiring request is receieved. Please wait for the confirmation! <br></br>
-                    Thank you so fuch for being with <span className='underline'>Shelton-tool</span>
-
-                    <p onClick={() => router.push('/user-order')} className='flex items-center gap-x-3 text-slate-300 hover:text-white hover:cursor-pointer mt-3 justify-center'>Go to Dashboard</p>
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog> */}
-
-
-            {/* Taking information */}
-            {/* <dialog id="toolHiringForm" className="modal">
-                <div style={{
-                    color: 'white',
-                    background: 'black',
-                    border: '2px solid crimson'
-                }} className="modal-box">
-                    <UserFormForHiringTool setPhoneNumber={setPhoneNumber} setAddress={setAddress} authenticatedUser={authenticatedUser} phoneNumber={phoneNumber} address={address}></UserFormForHiringTool>
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
-                </form>
-            </dialog> */}
-
         </div>);
 };
 
