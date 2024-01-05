@@ -101,7 +101,7 @@ const SimpleSlider = () => {
                                         </span>
                                     ))}
                                 </div>
-                                <p className='text-slate-300'>{product?.price}</p>
+                                <p className='text-slate-300'>{product?.price} ৳</p>
                             </div>
                         </div>
 

@@ -4,6 +4,7 @@ import React, {
   useState,
 } from 'react';
 
+import { useSession } from 'next-auth/react';
 import {
   usePathname,
   useRouter,
@@ -13,7 +14,7 @@ import { IoStar } from 'react-icons/io5';
 
 import { CustomerAPI } from '../../APIcalling/customerAPI';
 import CommentsAndReviews from '../../pages/Components/CommentsAndReviews';
-import DashboardCSS from '../../style/Dashboard.module.css';
+import SheltonLogin from '../../pages/Components/SheltonLogin';
 import MyServiceCSS from '../../style/Dashboard.module.css';
 import IndividualCSS from '../../style/Individual.module.css';
 import {
@@ -26,9 +27,9 @@ import Divider from '../Components/Divider';
 
 const ProductSlider = () => {
     const pathname = usePathname();
+    const { data: session } = useSession();
     const clickedFor = pathname?.split("/")[pathname?.split("/").length - 1];
-    const {authenticatedUser, setAuthenticatedUser } = AuthenticUser.useContainer();
-    console.log(authenticatedUser);
+    const { authenticatedUser, setAuthenticatedUser } = AuthenticUser.useContainer();
     const [individualProduct, setIndividualProduct] = useState([]);
     const [indRating, setIndRating] = useState([]);
     const [avgRating, setAvgRating] = useState([]);
@@ -41,27 +42,27 @@ const ProductSlider = () => {
             })
         }
     }, [clickedFor])
-    useEffect(()=>{
+    useEffect(() => {
         console.log(individualProduct);
-        if(individualProduct){
+        if (individualProduct) {
             const rattings = individualProduct?.comments?.map(comment => comment?.commentAndRating);
-                    const equipmentRatting = rattings?.map(getValue => getValue?.individualRatting);
-                    const customerServiceRatting = rattings?.map(getValue => getValue?.overallRatting);
-                    
-                    setIndRating(Math.round(equipmentRatting?.reduce((accumulator, currentValue) => {
-                        if (typeof currentValue === 'number') {
-                            return accumulator + currentValue;
-                        }
-                        return accumulator;
-                    }, 0) / (rattings?.length)))
-                    setAvgRating(Math.round(customerServiceRatting?.reduce((accumulator, currentValue) => {
-                        if (typeof currentValue === 'number') {
-                            return accumulator + currentValue;
-                        }
-                        return accumulator;
-                    }, 0) / (rattings?.length)))
+            const equipmentRatting = rattings?.map(getValue => getValue?.individualRatting);
+            const customerServiceRatting = rattings?.map(getValue => getValue?.overallRatting);
+
+            setIndRating(Math.round(equipmentRatting?.reduce((accumulator, currentValue) => {
+                if (typeof currentValue === 'number') {
+                    return accumulator + currentValue;
+                }
+                return accumulator;
+            }, 0) / (rattings?.length)))
+            setAvgRating(Math.round(customerServiceRatting?.reduce((accumulator, currentValue) => {
+                if (typeof currentValue === 'number') {
+                    return accumulator + currentValue;
+                }
+                return accumulator;
+            }, 0) / (rattings?.length)))
         }
-    },[individualProduct])
+    }, [individualProduct])
     const { user, setUser } = UserStore.useContainer();
     const { products, setProducts } = ProductsStore.useContainer();
     const router = useRouter();
@@ -100,8 +101,13 @@ const ProductSlider = () => {
     const [comment, setComment] = useState('');
 
     const handleUserWantsToComment = () => {
-        document.getElementById('readyToCommentModal').showModal();
+        if (session) {
+            document.getElementById('readyToCommentModal').showModal();
+        } else {
+            document.getElementById('loginModal').showModal();
+        }
     }
+
     const HandlePostingCommentOnTool = async () => {
         const userComment = {
             name: authenticatedUser?.user?.name || 'Annonomous',
@@ -171,8 +177,7 @@ const ProductSlider = () => {
                         }
                         <div className=''>
                             <p>Category: {individualProduct?.category}</p>
-                            <p>Price: {individualProduct?.price}</p>
-                            <p>Key Features like Brand, Model, Specification, Port, Type, Resolution, Voltage, etc</p>
+                            <p className='my-4'>Price: {individualProduct?.price}  ৳</p>
                             <div className='flex items-center gap-x-2'>
                                 <h1>Individual Rating:</h1>
                                 <div className='flex justify-evenly items-center'>
@@ -181,17 +186,17 @@ const ProductSlider = () => {
                                             key={value}
                                             onClick={() => setSupportServices(value)}>
                                             <IoStar size={25} color={`${value <= (Math.round(individualProduct?.comments?.map(comment => comment?.commentAndRating)?.map(getValue => getValue?.individualRatting)?.reduce((accumulator, currentValue) => {
-                                  if (typeof currentValue === 'number') {
-                                    return accumulator + currentValue;
-                                  }
-                                  return accumulator;
-                                }, 0) / ((individualProduct?.comments?.map(comment => comment?.commentAndRating))?.length))) ? 'white' : 'rgba(255, 255, 255, 0.583)'}`}></IoStar>
+                                                if (typeof currentValue === 'number') {
+                                                    return accumulator + currentValue;
+                                                }
+                                                return accumulator;
+                                            }, 0) / ((individualProduct?.comments?.map(comment => comment?.commentAndRating))?.length))) ? 'white' : 'rgba(255, 255, 255, 0.583)'}`}></IoStar>
                                         </span>
                                     ))}
                                 </div>
                             </div>
 
-                            <div className='flex items-center gap-x-2'>
+                            <div className='flex items-center gap-x-2 my-4'>
                                 <h1>Average Rating:</h1>
                                 <div className='flex justify-evenly items-center'>
                                     {[1, 2, 3, 4, 5].map((value) => (
@@ -199,34 +204,28 @@ const ProductSlider = () => {
                                             key={value}
                                             onClick={() => setSupportServices(value)}>
                                             <IoStar size={25} color={`${value <= (Math.round(individualProduct?.comments?.map(comment => comment?.commentAndRating)?.map(getValue => getValue?.overallRatting)?.reduce((accumulator, currentValue) => {
-                                  if (typeof currentValue === 'number') {
-                                    return accumulator + currentValue;
-                                  }
-                                  return accumulator;
-                                }, 0) / ((individualProduct?.comments?.map(comment => comment?.commentAndRating))?.length))) ? 'white' : 'rgba(255, 255, 255, 0.583)'}`}></IoStar>
+                                                if (typeof currentValue === 'number') {
+                                                    return accumulator + currentValue;
+                                                }
+                                                return accumulator;
+                                            }, 0) / ((individualProduct?.comments?.map(comment => comment?.commentAndRating))?.length))) ? 'white' : 'rgba(255, 255, 255, 0.583)'}`}></IoStar>
                                         </span>
                                     ))}
                                 </div>
                             </div>
-                            <p>Reviews</p>
-                            <p>Description: {individualProduct?.description}</p>
+
+                            <div className='lg:pl-4 md:pl-3 pl-2'>
+                                <p className='text-slate-400'>key Features</p>
+                                <p>Brand: {individualProduct?.keyFeatures?.brand} </p>
+                                <p>Model: {individualProduct?.keyFeatures?.model} </p>
+                            </div>
+
+                            <div className='my-4'>
+                                <p style={{ whiteSpace: 'pre-line' }}>{individualProduct?.description}</p>
+                            </div>
                         </div>
 
-                        {
-                            authenticatedUser && <div className={`${IndividualCSS.theButton} my-[12px] mr-2`} onClick={handleEditByAdmin}>
-                                <button className={`btn border-0 btn-sm w-full normal-case ${DashboardCSS.IndividualProductBuyNowButton}`}>Edit</button>
-                            </div>
-                        }
 
-                        {
-                            authenticatedUser && <div className={`${IndividualCSS.theButton} lg:hidden block md:hidden`} onClick={() => document.getElementById('beforeDelete').showModal()}>
-                                <button className={`btn border-0 btn-sm w-full normal-case ${DashboardCSS.IndividualProductBuyNowButton}`}>Delete Tool</button>
-                            </div>
-                        }
-
-                        <div className='lg:hidden block md:hidden my-[12px]'>
-                            <p style={{ whiteSpace: 'pre-line' }}>{individualProduct?.description}</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -310,6 +309,20 @@ const ProductSlider = () => {
                             ))}
                         </div>
                     </div>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+
+            <dialog id="loginModal" className="modal">
+                <div style={{
+                    color: 'white',
+                    background: 'black',
+                    border: '2px solid crimson'
+                }} className="modal-box">
+                    <SheltonLogin></SheltonLogin>
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
