@@ -1,0 +1,282 @@
+/* Responsive styles for different screen sizes */
+
+/* Mobile devices (up to 767px) */
+@media screen and (max-width: 767px) {
+  .previewImage {
+    width: 100%;
+    /* color: rgba(255, 255, 255, 0.583); */
+  }
+  .imageLeftArrow {
+    z-index: 1;
+    margin-right: -12.5px;
+  }
+  .imageRightArrow {
+    z-index: 1;
+    margin-left: -12.5px;
+  }
+  .previewImageLittle {
+    margin-top: 25px;
+    margin-left: 12.5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .decissionButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .headingLeftBorder {
+    margin-top: 12px;
+  }
+  .inStock {
+    position: absolute;
+    right: 3px;
+    top: -13px;
+    background: green;
+    color: white;
+    padding: 3px;
+    border-radius: 4px;
+  }
+  .inStockSuggestion {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: green;
+    color: white;
+    padding: 3px;
+    opacity: 0.8;
+    border-radius: 0 8px 0 8px;
+  }
+}
+
+/* Tablets (768px to 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    display: flex;
+  }
+  .previewImage {
+    width: 300px;
+  }
+  .imageLeftArrow {
+    z-index: 1;
+    margin-right: -12.5px;
+  }
+  .imageRightArrow {
+    z-index: 1;
+    margin-left: -12.5px;
+  }
+  .previewImageLittle {
+    margin-top: 25px;
+    margin-left: 12.5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .decissionButton {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .inStock {
+    position: absolute;
+    right: -10px;
+    top: -13px;
+    background: green;
+    color: white;
+    padding: 3px;
+    border-radius: 4px;
+  }
+  .inStockSuggestion {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: green;
+    color: white;
+    padding: 3px;
+    opacity: 0.8;
+    border-radius: 0 8px 0 8px;
+  }
+}
+
+/* Large screens (1024px and above) */
+@media screen and (min-width: 1024px) {
+  .container {
+    display: flex;
+  }
+  .previewImage {
+    width: 320px;
+  }
+  .imageLeftArrow {
+    z-index: 1;
+    margin-right: -12.5px;
+  }
+  .imageRightArrow {
+    z-index: 1;
+    margin-left: -12.5px;
+  }
+  .previewImageLittle {
+    margin-top: 25px;
+    margin-left: 12.5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .decissionButton {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    row-gap: 25px;
+  }
+  .inStock {
+    position: absolute;
+    right: -10px;
+    top: -13px;
+    background: green;
+    color: white;
+    padding: 3px;
+    border-radius: 4px;
+  }
+  .inStockSuggestion {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: green;
+    color: white;
+    padding: 3px;
+    opacity: 0.8;
+    border-radius: 0 8px 0 8px;
+  }
+}
+
+/* Without media query....... */
+.headingLeftBorder {
+  margin-left: 12px;
+}
+.mainImage {
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.individualImage {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.littleImageOfProduct {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  background: purple;
+  opacity: 0.4;
+  transition-duration: 370ms;
+}
+
+.littleImageOfProduct:hover {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 1;
+  transition-duration: 100ms;
+}
+.littleImageOfProductSelected {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 1;
+  transition-duration: 100ms;
+}
+.inStockSuggestion {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: green;
+  color: white;
+  padding: 3px;
+  opacity: 0.8;
+  border-radius: 0 8px 0 8px;
+}
+
+.priceIncreasingDecrising:hover {
+  background: crimson;
+  transition-duration: 350ms;
+}
+
+/* Css for new project functionality */
+.customInput {
+  background: white;
+  color: black;
+  border-radius: 6px;
+}
+.timeInputContainer {
+  border-radius: 6px;
+  position: relative;
+  background: white;
+  border: 1px solid crimson;
+}
+
+.customClockIcon {
+  position: absolute;
+  top: 8.7px;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  content: "";
+}
+
+.plusCommnet {
+  color: white;
+  font-size: 14px;
+  transition-duration: 300ms;
+}
+
+.plusCommnet:hover {
+  font-size: 14px;
+  color: lightskyblue;
+  transition-duration: 300ms;
+  cursor: pointer;
+}
+
+.toCommentModal{
+    /* color: 'white', */
+    background: black;
+    border: 2px solid crimson;
+}
+
+.postingComment{
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-image: radial-gradient(circle, #bc02d1 0%, #00d4ff 100%);
+  color: white;
+  padding: 3px;
+  opacity: 0.8;
+  border-radius: 0 8px 0 8px;
+  cursor: pointer;
+  transition-duration: 320ms;
+}
+
+
+.postingComment:hover{
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
+  color: white;
+  padding: 3px;
+  transition-duration: 320ms;
+  opacity: 0.8;
+  border-radius: 0 8px 0 8px;
+  cursor: pointer;
+}

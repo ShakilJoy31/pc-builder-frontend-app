@@ -1,0 +1,336 @@
+/* For Different Color of Shadow. */
+.redShadow:hover {
+  box-shadow: 2px 2px 15px 5px red;
+  transition-duration: 200ms;
+}
+
+.lightBlueShadow:hover {
+  box-shadow: 2px 2px 15px 5px lightblue;
+  transition-duration: 200ms;
+}
+
+.blackShadow:hover {
+  box-shadow: 2px 2px 15px 5px black;
+  transition-duration: 200ms;
+}
+
+.blackShadowWithColor:hover {
+  box-shadow: 2px 2px 15px 5px black;
+  transition-duration: 200ms;
+  color: black;
+}
+
+.whiteShadow:hover {
+  box-shadow: 2px 2px 15px 5px white;
+  transition-duration: 200ms;
+}
+
+.littleSpinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid white;
+  border-top-color: black;
+  animation: spin 1.2s ease-in-out infinite;
+}
+.mediumSpinner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 8px solid white;
+  border-top-color: black;
+  animation: spin 1.2s ease-in-out infinite;
+}
+.bigSpinner {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 10px solid white;
+  border-top-color: black;
+  animation: spin 1.2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(720deg);
+  }
+}
+
+/* Starting the component style from here. */
+.brandCard {
+  /* margin: 10px; */
+  /* padding: 5px; */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.brandImage {
+  height: 145px;
+  box-shadow: 2px 2px 2px 2px gray;
+}
+
+/* TimeInput.module.css */
+.timeInputContainer {
+  position: relative;
+}
+
+.customInputRedIcon {
+  background-color: transparent;
+}
+
+.customClockIcon {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  content: "";
+}
+
+.partnerHeadingCard {
+  /* width: 320px;
+  height: 850px; */
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #ffd098;
+}
+
+.partnerHeadingMain {
+  color: #121212;
+  font-size: 36px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.partnerHeadingPara {
+  color: rgba(18, 18, 18, 0.64);
+  font-size: 16px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.partnerHeadingOption {
+  color: rgba(18, 18, 18, 0.64);
+  font-size: 16px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.partnerHeadingOption:hover {
+  color: #121212;
+  font-size: 16px;
+  font-family: Inter;
+  font-style: normal;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.partnerHeadingOptionSelected {
+  color: #121212;
+  font-size: 17px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.BusinessInfo {
+  color: #90212c;
+  font-size: 34px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.aadharCard {
+  color: #90212c;
+  font-size: 24px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.customInput {
+  border-radius: 8px;
+  border: 1px solid rgba(18, 18, 18, 0.16);
+  background: rgba(229, 229, 229, 0.4);
+  color: black;
+}
+.customInputDifferent {
+  background: rgba(229, 229, 229, 0.4);
+  color: black;
+}
+.sendingButton {
+  border-radius: 8px;
+  background: #dc3545;
+  width: 96px;
+  height: 42px;
+  flex-shrink: 0;
+}
+.backGround {
+  border-radius: 8px;
+  border: 1px solid rgba(18, 18, 18, 0.16);
+  background: rgba(229, 229, 229, 0.4);
+}
+
+.customInputImageUpload {
+  border-radius: 8px;
+  border: 1px solid rgba(18, 18, 18, 0.15);
+  background: #e5e5e566;
+}
+
+.proceedButton {
+  border-radius: 8px;
+  background: #dc3545;
+}
+
+.disableButton {
+  border-radius: 8px;
+  background: gray;
+}
+.inputHead {
+  color: #da3545;
+  font-size: 14px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.ownerDetails {
+  border-radius: 20px;
+  background: #90212c;
+  width: 190px;
+  height: 42px;
+  color: #fff;
+  transition-duration: 350ms;
+}
+
+.ownerDetailsNotSelected {
+  color: #90212c;
+  text-align: center;
+  font-size: 20px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  transition-duration: 350ms;
+}
+
+.yesNoButton {
+  width: 86px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+.updateButton:hover {
+  box-shadow: 2px 2px 15px 5px lightblue;
+  transition-duration: 100ms;
+  border-radius: 2px;
+}
+.FinallyUpdateButton:hover {
+  box-shadow: 2px 2px 15px 5px black;
+  transition-duration: 100ms;
+  border-radius: 2px;
+}
+
+.tableRow {
+  color: white;
+  transition-duration: 200ms;
+  cursor: pointer;
+}
+
+.tableRow:hover {
+  color: orangered;
+  transition-duration: 200ms;
+  cursor: pointer;
+}
+
+.suggestionLocation{
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+  padding-left: 20px;
+  background-color: black;
+  color: white;
+}
+
+.suggestionLocation:hover{
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+  padding-left: 20px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  transition-duration: 230ms;
+}
+
+.suggestionLocationForBorder{
+  border-radius: 0 0 8px 8px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+/* Default modal content styles */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+.modalContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.blurred {
+  filter: blur(3px);
+}
+
+@media (max-width: 768px) {
+  .modalContainer {
+    width: 100%;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.deleteAfterAccepted{
+  color: white;
+  transition-duration: 350ms;
+}
+
+.deleteAfterAccepted:hover{
+  color: crimson;
+  transition-duration: 200ms;
+}

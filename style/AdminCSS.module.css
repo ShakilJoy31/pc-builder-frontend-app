@@ -1,0 +1,21 @@
+.orderRow{
+    transition-duration: 1500ms;
+}
+
+.orderRow:hover{
+    /* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); */
+    background: crimson;
+    transition-duration: 190ms !important;
+    cursor: pointer;
+}
+
+.acceptedOrdersRow{
+    transition-duration: 1500ms;
+}
+.acceptedOrdersRow:hover{
+    background: rgb(1, 83, 247);
+    /* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); */
+    /* background: radial-gradient(circle, #5c0067 0%, #00d4ff 100%); */
+    transition-duration: 190ms !important;
+    cursor: pointer;
+}
