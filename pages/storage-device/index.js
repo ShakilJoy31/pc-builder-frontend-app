@@ -13,8 +13,8 @@ import {
 } from 'next/navigation';
 import { IoStar } from 'react-icons/io5';
 
+import { CustomerAPI } from '../../APIcalling/customerAPI';
 import DashboardCSS from '../../style/Dashboard.module.css';
-import { CustomerAPI } from '../APIcalling/customerAPI';
 
 const Page = () => {
   const router = useRouter();

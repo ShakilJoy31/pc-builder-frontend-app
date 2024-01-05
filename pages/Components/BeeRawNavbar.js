@@ -11,7 +11,7 @@ import {
 
 import { ProductsStore } from '@/userStore';
 
-import { CustomerAPI } from '../APIcalling/customerAPI';
+import { CustomerAPI } from '../../APIcalling/customerAPI';
 
 const Page = () => {
   const router = useRouter();

@@ -8,8 +8,8 @@ import {
   AiFillEyeInvisible,
 } from 'react-icons/ai';
 
+import { CustomerAPI } from '../../APIcalling/customerAPI';
 import DashboardCSS from '../../style/Dashboard.module.css';
-import { CustomerAPI } from '../APIcalling/customerAPI';
 
 const Page = ({setIsLoggedIn}) => {
     const [name, setName] = useState('');

@@ -9,12 +9,12 @@ import {
   AiFillEyeInvisible,
 } from 'react-icons/ai';
 
+import { CustomerAPI } from '../../APIcalling/customerAPI';
 import DashboardCSS from '../../style/Dashboard.module.css';
 import {
   AuthenticUser,
   CommentPermission,
 } from '../../userStore';
-import { CustomerAPI } from '../APIcalling/customerAPI';
 
 const Page = ({setIsLoggedIn}) => {
     const router = useRouter();

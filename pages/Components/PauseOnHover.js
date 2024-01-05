@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation';
 import { IoStar } from 'react-icons/io5';
 import Slider from 'react-slick';
 
+import { CustomerAPI } from '../../APIcalling/customerAPI';
 import DashboardCSS from '../../style/Dashboard.module.css';
-import { CustomerAPI } from '../APIcalling/customerAPI';
 
 const SimpleSlider = () => {
     const router = useRouter();

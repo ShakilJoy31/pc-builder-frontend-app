@@ -10,13 +10,13 @@ import {
 } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 
+import { CustomerAPI } from '../../APIcalling/customerAPI';
 import DashboardCSS from '../../style/Dashboard.module.css';
 import IndividualCSS from '../../style/Individual.module.css';
 import {
   AuthenticUser,
   LoggedInUserStore,
 } from '../../userStore';
-import { CustomerAPI } from '../APIcalling/customerAPI';
 
 const Page = ({ individualProduct, setIndividualProduct }) => {
     const [viewReply, setViewReply] = useState(false);

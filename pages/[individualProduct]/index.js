@@ -11,6 +11,7 @@ import {
 import { FaPlus } from 'react-icons/fa';
 import { IoStar } from 'react-icons/io5';
 
+import { CustomerAPI } from '../../APIcalling/customerAPI';
 import CommentsAndReviews from '../../pages/Components/CommentsAndReviews';
 import DashboardCSS from '../../style/Dashboard.module.css';
 import MyServiceCSS from '../../style/Dashboard.module.css';
@@ -22,7 +23,6 @@ import {
   ProductsStore,
   UserStore,
 } from '../../userStore';
-import { CustomerAPI } from '../APIcalling/customerAPI';
 import Divider from '../Components/Divider';
 
 const ProductSlider = () => {

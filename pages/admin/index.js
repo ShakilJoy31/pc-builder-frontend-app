@@ -16,8 +16,8 @@ import {
 } from '@/constants/font-constants';
 import { url } from '@/constants/image-constants';
 
+import { AdminAPI } from '../../APIcalling/adminAPI';
 import HomeComponentCss from '../../style/ComponentStyle.module.css';
-import { AdminAPI } from '../APIcalling/adminAPI';
 
 const Page = () => {
 
