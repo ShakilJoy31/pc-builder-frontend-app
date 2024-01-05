@@ -34,7 +34,7 @@ export default function Home() {
                   <stop offset="100%" style={{ stopColor: 'rgb(28,97,231)' }} />
                 </linearGradient>
               </defs>
-              <text className='lg:text-3xl md:text-2xl text-xl' x="10" y="30" fill="url(#gradient)" textAnchor="start">Let's build your PC together</text>
+              <text className='lg:text-3xl md:text-2xl text-xl' x="10" y="30" fill="url(#gradient)" textAnchor="start">Let`&apos;`s build your PC together</text>
             </svg>
           </h1>
         </div>
