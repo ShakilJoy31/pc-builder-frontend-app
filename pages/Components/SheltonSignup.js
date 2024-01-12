@@ -9,6 +9,8 @@ import {
   AiFillEyeInvisible,
 } from 'react-icons/ai';
 
+import { AuthenticUser } from '@/userStore';
+
 import { CustomerAPI } from '../../APIcalling/customerAPI';
 import DashboardCSS from '../../style/Dashboard.module.css';
 
@@ -21,6 +23,8 @@ const Page = () => {
     const [signedInUser, setSignedInUser] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const { authenticatedUser, setAuthenticatedUser } = AuthenticUser.useContainer();
+    
     const formData = { 'name': name, 'phone': phone, 'email': email, 'password': password };
 
     useEffect(() => {
@@ -37,8 +41,8 @@ const Page = () => {
         if (!foundDatabaseUser) {
             CustomerAPI.handleSignin(formData).then(res => {
                 setLoading(false);
+                setAuthenticatedUser({user: formData});
                 document.getElementById('signupModal').close();
-                localStorage.setItem('user', JSON.stringify(formData));
             })
         }
         else {

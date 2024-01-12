@@ -127,7 +127,6 @@ const addReviewToComment = async (toolId, getReview) => {
 
 // Delete review by admin
 const handleDeletingReviewByAdmin = async (toolId, commentId, reviewDataToDelete) => {
-  console.log(reviewDataToDelete);
   const axiosInstance = axios.create({
       baseURL: BASE_URL
   });

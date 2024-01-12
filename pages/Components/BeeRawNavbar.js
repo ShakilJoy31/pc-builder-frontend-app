@@ -24,7 +24,7 @@ import SheltonSignup from '../../pages/Components/SheltonSignup';
 import DashboardCSS from '../../style/Dashboard.module.css';
 
 const Page = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession() 
   const router = useRouter();
   const pathname = usePathname();
   const { products, setProducts } = ProductsStore.useContainer();

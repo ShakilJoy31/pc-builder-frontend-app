@@ -44,15 +44,7 @@ const Page = () => {
             const checkLocalStorage = JSON.parse(localStorage.getItem('user'));
             if (!checkLocalStorage) {
                 setLoading(false);
-                setIsCommentPermission('You are permitted to comment and review!');
-                if (email === 'lukman@admin.com' && password === 'password') {
-                    setAuthenticatedUser(foundDatabaseUser);
-                    router.push('/admin');
-                    localStorage.setItem('AdminUser', JSON.stringify(foundDatabaseUser));
-                } else {
-
-                    localStorage.setItem('user', JSON.stringify(foundDatabaseUser));
-                }
+                setAuthenticatedUser({user: foundDatabaseUser});
                 document.getElementById('loginModal').close();
             }
         }
