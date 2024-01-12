@@ -25,7 +25,7 @@ import DashboardCSS from '../../style/Dashboard.module.css';
 
 const Page = () => {
   const { data: session } = useSession() 
-  const router = useRouter();
+  const router = useRouter(); 
   const pathname = usePathname();
   const { products, setProducts } = ProductsStore.useContainer();
   const { authenticatedUser, setAuthenticatedUser } = AuthenticUser.useContainer();
